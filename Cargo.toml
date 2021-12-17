@@ -2,9 +2,9 @@
 name = "skyangle"
 version = "0.1.0"
 authors = ["Rod Conan <rconan@gmto.org>"]
-edition = "2018"
+edition = "2021"
 license = "MIT"
-description = "Astronomical angles conversion"
+description = "Astronomical angles manipulations"
 repository = "https://github.com/rconan/skyangle"
 documentation = "https://docs.rs/skyangle"
 readme = "README.md"
