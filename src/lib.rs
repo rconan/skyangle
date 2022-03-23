@@ -8,9 +8,9 @@ impl SkyAngle<f64> {
     pub fn to_radians(self) -> f64 {
         match self {
             Self::Degree(val) => val.to_radians(),
-            Self::Arcminute(val) => Self::Degree(val/60.0).to_radians(),
-            Self::Arcsecond(val) => Self::Arcminute(val/60.0).to_radians(),
-            Self::MilliArcsec(val) => Self::Arcsecond(val*1e-3).to_radians(),
+            Self::Arcminute(val) => Self::Degree(val / 60.0).to_radians(),
+            Self::Arcsecond(val) => Self::Arcminute(val / 60.0).to_radians(),
+            Self::MilliArcsec(val) => Self::Arcsecond(val * 1e-3).to_radians(),
         }
     }
 }
@@ -18,9 +18,9 @@ impl SkyAngle<f32> {
     pub fn to_radians(self) -> f32 {
         match self {
             Self::Degree(val) => val.to_radians(),
-            Self::Arcminute(val) => Self::Degree(val/60.0).to_radians(),
-            Self::Arcsecond(val) => Self::Arcminute(val/60.0).to_radians(),
-            Self::MilliArcsec(val) => Self::Arcsecond(val*1e-3).to_radians(),
+            Self::Arcminute(val) => Self::Degree(val / 60.0).to_radians(),
+            Self::Arcsecond(val) => Self::Arcminute(val / 60.0).to_radians(),
+            Self::MilliArcsec(val) => Self::Arcsecond(val * 1e-3).to_radians(),
         }
     }
 }
@@ -63,3 +63,55 @@ macro_rules! impl_conversion {
     };
 }
 impl_conversion!(f64, f32);
+
+impl Conversion<Vec<f64>> for Vec<f64> {
+    fn from_arcmin(self) -> Vec<f64> {
+        self.into_iter().map(|x| x.from_arcmin()).collect()
+    }
+
+    fn from_arcsec(self) -> Vec<f64> {
+        self.into_iter().map(|x| x.from_arcsec()).collect()
+    }
+
+    fn from_mas(self) -> Vec<f64> {
+        self.into_iter().map(|x| x.from_mas()).collect()
+    }
+
+    fn to_arcmin(self) -> Vec<f64> {
+        self.into_iter().map(|x| x.to_arcmin()).collect()
+    }
+
+    fn to_arcsec(self) -> Vec<f64> {
+        self.into_iter().map(|x| x.to_arcsec()).collect()
+    }
+
+    fn to_mas(self) -> Vec<f64> {
+        self.into_iter().map(|x| x.to_mas()).collect()
+    }
+}
+
+impl Conversion<Vec<f32>> for Vec<f32> {
+    fn from_arcmin(self) -> Vec<f32> {
+        self.into_iter().map(|x| x.from_arcmin()).collect()
+    }
+
+    fn from_arcsec(self) -> Vec<f32> {
+        self.into_iter().map(|x| x.from_arcsec()).collect()
+    }
+
+    fn from_mas(self) -> Vec<f32> {
+        self.into_iter().map(|x| x.from_mas()).collect()
+    }
+
+    fn to_arcmin(self) -> Vec<f32> {
+        self.into_iter().map(|x| x.to_arcmin()).collect()
+    }
+
+    fn to_arcsec(self) -> Vec<f32> {
+        self.into_iter().map(|x| x.to_arcsec()).collect()
+    }
+
+    fn to_mas(self) -> Vec<f32> {
+        self.into_iter().map(|x| x.to_mas()).collect()
+    }
+}
