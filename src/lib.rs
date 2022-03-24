@@ -89,6 +89,31 @@ impl Conversion<Vec<f64>> for Vec<f64> {
         self.into_iter().map(|x| x.to_mas()).collect()
     }
 }
+impl Conversion<Vec<f64>> for &[f64] {
+    fn from_arcmin(self) -> Vec<f64> {
+        self.iter().map(|x| x.from_arcmin()).collect()
+    }
+
+    fn from_arcsec(self) -> Vec<f64> {
+        self.iter().map(|x| x.from_arcsec()).collect()
+    }
+
+    fn from_mas(self) -> Vec<f64> {
+        self.iter().map(|x| x.from_mas()).collect()
+    }
+
+    fn to_arcmin(self) -> Vec<f64> {
+        self.iter().map(|x| x.to_arcmin()).collect()
+    }
+
+    fn to_arcsec(self) -> Vec<f64> {
+        self.iter().map(|x| x.to_arcsec()).collect()
+    }
+
+    fn to_mas(self) -> Vec<f64> {
+        self.iter().map(|x| x.to_mas()).collect()
+    }
+}
 
 impl Conversion<Vec<f32>> for Vec<f32> {
     fn from_arcmin(self) -> Vec<f32> {
@@ -113,5 +138,30 @@ impl Conversion<Vec<f32>> for Vec<f32> {
 
     fn to_mas(self) -> Vec<f32> {
         self.into_iter().map(|x| x.to_mas()).collect()
+    }
+}
+impl Conversion<Vec<f32>> for &[f32] {
+    fn from_arcmin(self) -> Vec<f32> {
+        self.iter().map(|x| x.from_arcmin()).collect()
+    }
+
+    fn from_arcsec(self) -> Vec<f32> {
+        self.iter().map(|x| x.from_arcsec()).collect()
+    }
+
+    fn from_mas(self) -> Vec<f32> {
+        self.iter().map(|x| x.from_mas()).collect()
+    }
+
+    fn to_arcmin(self) -> Vec<f32> {
+        self.iter().map(|x| x.to_arcmin()).collect()
+    }
+
+    fn to_arcsec(self) -> Vec<f32> {
+        self.iter().map(|x| x.to_arcsec()).collect()
+    }
+
+    fn to_mas(self) -> Vec<f32> {
+        self.iter().map(|x| x.to_mas()).collect()
     }
 }
