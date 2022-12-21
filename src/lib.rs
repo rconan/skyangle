@@ -44,6 +44,15 @@ impl<T: Conversion<T>> SkyAngle<T> {
     pub fn into_mas(self) -> Self {
         SkyAngle::MilliArcsec(self.to_radians().to_mas())
     }
+    pub fn into_value(self) -> T {
+        match self {
+            SkyAngle::Radian(val) => val,
+            SkyAngle::Degree(val) => val,
+            SkyAngle::Arcminute(val) => val,
+            SkyAngle::Arcsecond(val) => val,
+            SkyAngle::MilliArcsec(val) => val,
+        }
+    }
 }
 
 impl<T> Add for SkyAngle<T>
