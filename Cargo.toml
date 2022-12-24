@@ -1,6 +1,6 @@
 [package]
 name = "skyangle"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["Rod Conan <rconan@gmto.org>"]
 edition = "2021"
 license = "MIT"
@@ -10,3 +10,9 @@ documentation = "https://docs.rs/skyangle"
 readme = "README.md"
 categories = ["science", "simulation"]
 keywords = ["telescope", "astronomy"]
+
+[dependencies]
+serde = { version = "1.0.151", features = ["derive"] }
+
+[dev-dependencies]
+serde_json = "1.0.91"

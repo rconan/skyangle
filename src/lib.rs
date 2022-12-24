@@ -1,9 +1,9 @@
+use serde::Serialize;
 use std::{
     fmt::Display,
     ops::{Add, Div, Mul, Sub},
 };
-
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Serialize)]
 pub enum SkyAngle<T: Conversion<T>> {
     Radian(T),
     Degree(T),
@@ -14,6 +14,18 @@ pub enum SkyAngle<T: Conversion<T>> {
 impl<T: Conversion<T> + Display> Display for SkyAngle<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
+            SkyAngle::Radian(a) => write!(f, "{:.3}radian", a),
+            SkyAngle::Degree(a) => write!(f, "{:.3}degree", a),
+            SkyAngle::Arcminute(a) => write!(f, "{:.3}arcmin", a),
+            SkyAngle::Arcsecond(a) => write!(f, "{:.3}arcsec", a),
+            SkyAngle::MilliArcsec(a) => write!(f, "{:.3}mas", a),
+        }
+    }
+}
+
+/* impl<T: Conversion<T> + Display> Display for SkyAngle<T> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
             SkyAngle::Radian(val) => val.fmt(f),
             SkyAngle::Degree(val) => val.fmt(f),
             SkyAngle::Arcminute(val) => val.fmt(f),
@@ -21,7 +33,7 @@ impl<T: Conversion<T> + Display> Display for SkyAngle<T> {
             SkyAngle::MilliArcsec(val) => val.fmt(f),
         }
     }
-}
+} */
 impl<T: Conversion<T>> SkyAngle<T> {
     pub fn to_radians(self) -> T {
         match self {
@@ -215,3 +227,15 @@ macro_rules! impl_conversion {
         })+    };
 }
 impl_conversion!(f64, f32);
+
+#[cfg(test)]
+pub mod tests {
+    use super::*;
+
+    #[test]
+    fn ser() {
+        let a = SkyAngle::Arcminute(1f64);
+        let s = serde_json::to_string(&a).unwrap();
+        println!("{s}");
+    }
+}
