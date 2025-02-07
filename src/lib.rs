@@ -1,15 +1,24 @@
-use serde::Serialize;
 use std::{
     fmt::Display,
     ops::{Add, Div, Mul, Sub},
 };
-#[derive(Debug, Clone, Copy, Serialize)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[derive(Debug, Clone, Copy)]
 pub enum SkyAngle<T: Conversion<T>> {
     Radian(T),
     Degree(T),
     Arcminute(T),
     Arcsecond(T),
     MilliArcsec(T),
+}
+
+impl<T> Default for SkyAngle<T>
+where
+    T: Conversion<T> + std::default::Default,
+{
+    fn default() -> Self {
+        Self::Arcsecond(Default::default())
+    }
 }
 impl<T: Conversion<T> + Display> Display for SkyAngle<T> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
