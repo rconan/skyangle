@@ -1,6 +1,6 @@
 use std::{
     fmt::Display,
-    ops::{Add, Div, Mul, Sub},
+    ops::{Add, Div, Mul, Neg, Sub},
 };
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[derive(Debug, Clone, Copy)]
@@ -10,6 +10,24 @@ pub enum SkyAngle<T: Conversion<T>> {
     Arcminute(T),
     Arcsecond(T),
     MilliArcsec(T),
+}
+
+impl<T> Neg for SkyAngle<T>
+where
+    T: Conversion<T> + Neg,
+    <T as Neg>::Output: Conversion<<T as Neg>::Output>,
+{
+    type Output = SkyAngle<<T as Neg>::Output>;
+
+    fn neg(self) -> Self::Output {
+        match self {
+            SkyAngle::Radian(x) => SkyAngle::Radian(-x),
+            SkyAngle::Degree(x) => SkyAngle::Degree(-x),
+            SkyAngle::Arcminute(x) => SkyAngle::Arcminute(-x),
+            SkyAngle::Arcsecond(x) => SkyAngle::Arcsecond(-x),
+            SkyAngle::MilliArcsec(x) => SkyAngle::MilliArcsec(-x),
+        }
+    }
 }
 
 impl<T> Default for SkyAngle<T>
